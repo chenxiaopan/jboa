@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxp.jboa.dao.MailsMapper" >
+  <resultMap id="BaseResultMap" type="com.cxp.jboa.entity.Mails" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="MESSAGE" property="message" jdbcType="VARCHAR" />
+    <result column="PBTIME" property="pbtime" jdbcType="TIMESTAMP" />
+    <result column="FROMONE" property="fromOne" jdbcType="DECIMAL" />
+    <result column="TOONE" property="toOne" jdbcType="DECIMAL" />
+    <result column="ISREAD" property="isRead" jdbcType="DECIMAL" />
+    <result column="ISDEL" property="isDel" jdbcType="DECIMAL" />
+    <result column="ATTACHMENT" property="attachment" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TITLE, MESSAGE, PBTIME, FROMONE, TOONE, ISREAD, ISDEL, ATTACHMENT
+  </sql>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from MAILS
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="garageDel" parameterType="com.cxp.jboa.entity.Mails" >
+    delete from MAILS
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.cxp.jboa.entity.Mails" >
+    insert into MAILS (ID, TITLE, MESSAGE, 
+      PBTIME, FROMONE, TOONE, 
+      ISREAD, ISDEL, ATTACHMENT
+      )
+    values (seq.nextval, #{title,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, 
+      #{pbtime,jdbcType=TIMESTAMP}, #{fromOne,jdbcType=DECIMAL}, #{toOne,jdbcType=DECIMAL}, 
+      0, 0, #{attachment,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxp.jboa.entity.Mails" >
+    insert into MAILS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="message != null" >
+        MESSAGE,
+      </if>
+      <if test="pbtime != null" >
+        PBTIME,
+      </if>
+      <if test="fromOne != null" >
+        FROMONE,
+      </if>
+      <if test="toOne != null" >
+        TOONE,
+      </if>
+      <if test="isRead != null" >
+        ISREAD,
+      </if>
+      <if test="isDel != null" >
+        ISDEL,
+      </if>
+      <if test="attachment != null" >
+        ATTACHMENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="pbtime != null" >
+        #{pbtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fromOne != null" >
+        #{fromone,jdbcType=DECIMAL},
+      </if>
+      <if test="toOne != null" >
+        #{toone,jdbcType=DECIMAL},
+      </if>
+      <if test="isRead != null" >
+        #{isread,jdbcType=DECIMAL},
+      </if>
+      <if test="isDel != null" >
+        #{isdel,jdbcType=DECIMAL},
+      </if>
+      <if test="attachment != null" >
+        #{attachment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="delToGarage" parameterType="com.cxp.jboa.entity.Mails" >
+    update MAILS
+    <set >
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        MESSAGE = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="pbtime != null" >
+        PBTIME = #{pbtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fromOne != null" >
+        FROMONE = #{fromOne,jdbcType=DECIMAL},
+      </if>
+      <if test="toOne != null" >
+        TOONE = #{toOne,jdbcType=DECIMAL},
+      </if>
+      <if test="isRead != null" >
+        ISREAD = #{isRead,jdbcType=DECIMAL},
+      </if>
+      <if test="isDel != null" >
+        ISDEL = #{isDel,jdbcType=DECIMAL},
+      </if>
+      <if test="attachment != null" >
+        ATTACHMENT = #{attachment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxp.jboa.entity.Mails" >
+    update MAILS
+    set TITLE = #{title,jdbcType=VARCHAR},
+      MESSAGE = #{message,jdbcType=VARCHAR},
+      PBTIME = #{pbtime,jdbcType=TIMESTAMP},
+      FROMONE = #{fromOne,jdbcType=DECIMAL},
+      TOONE = #{toOne,jdbcType=DECIMAL},
+      ISREAD = #{isRead,jdbcType=DECIMAL},
+      ISDEL = #{isDel,jdbcType=DECIMAL},
+      ATTACHMENT = #{attachment,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="listMails" parameterType="Map" resultMap="BaseResultMap">
+    select * from mails where isdel=0 
+    </select>
+    
+  <select id="getTotalCount" parameterType="Map" resultType="java.lang.Integer">
+    select count(1) from mails where isdel=0  
+    </select>
+    
+  <select id="getMailGarage"  resultMap="BaseResultMap">
+    select * from mails where isdel=1  
+    </select>
+    
+    <update id="garageBack" parameterType="com.cxp.jboa.entity.Mails" >
+     update mails set isdel=0 where id=#{id}
+    </update>
+    
+</mapper>

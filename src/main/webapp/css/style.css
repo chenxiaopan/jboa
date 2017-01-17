@@ -1,0 +1,73 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{ margin:0; padding:0;}
+body{ font:12px 宋体;}
+img{ border:0;}
+table{ border-collapse:collapse;}
+ul{ list-style:none;}
+
+a{ color:#000; text-decoration: none;}
+a:hover{ color:#f30;}
+
+.red, .red a{ color:#f00;}
+.purple, .purple a{ color:#5D117D;}
+
+.global-width{ width:971px; margin:0 auto;}
+
+.top{ width:100%; height:88px; background:url(../Images/Top_bg.gif) repeat-x;}
+.top .logo{ margin:17px 0 0 0;}
+
+.status{ width:100%; height:36px; background:url(../Images/Top_bg.gif) repeat-x 0 bottom; line-height:36px;}
+	.usertype{ color:#2357E7; margin-right:30px;}
+	
+/****（1）原来是： height:100%; 修改成height:400px;  */
+.main{ background:#4E93BB; height:400px; overflow:hidden; padding:14px 0;}
+	/*菜单区域*/
+	.nav{ float:left; width:191px; padding-bottom:69px; background:url(../Images/left_bg.gif) no-repeat -382px bottom;}
+	.nav .t{ height:51px; background:url(../Images/left_bg.gif) no-repeat;}
+	/*菜单 默认状态*/
+	.nav dl{ background:url(../Images/left_bg.gif) -191px 0 repeat-y; line-height:22px; padding-left:20px;}
+	.nav dl dt{ background:url(../Images/ico.gif) no-repeat 0 -23px; padding-left:32px;}
+	.nav dl dd{ background:url(../Images/ico.gif) no-repeat 18px -51px; padding-left:36px; display:none;}
+	/*菜单 展开状态*/
+	.nav dl.open dt{ background-position:0 0;}   
+	.nav dl.open dd{ display:block;}
+	
+	/*操作区域*/
+	.action{ float:right;  width:759px; padding-bottom:69px; background:url(../Images/right.gif) no-repeat 0 bottom;}
+	.action .t{ height:41px; background:url(../Images/right_bg.gif) no-repeat; font:14px 宋体; padding:10px 0 0 30px;}
+	.action .pages{ border:#A8C8DA solid; width:732px; background:#fff; border-width:0 1px; padding-left:30px;}
+/*** （2）添加td的之间的间距 */
+.action .pages td{
+	padding: 6px 0px;
+}
+/**(3)table向下30px;*/
+.action .pages table{
+	/* margin-top: 30px; */
+
+}
+/**(4)table的字体大小;*/
+.action .pages tr {
+  font-size:12px;
+  font-family:"宋体";
+  }
+.copyright{ text-align:center; font:12px Arial; margin:20px 0; color:#000;}
+
+/*右侧文档通用样式*/
+.addform-base caption{ font:600 14px/40px 宋体; text-align:left;}
+.addform-base td{ padding:5px 0 5px;}
+
+.addform-item thead td{ font:600 14px/30px 宋体;}
+.addform-item td{ padding:5px 0;}
+
+.addform-item td.submit{ text-align:center; padding:12px 0;}
+.addform-item td.submit input{ margin:0 10px;}
+
+.event label{ float:left; font:600 14px/20px 宋体; margin:16px 0 0 14px;}
+.event textarea{ width:456px; height:52px; border:1px #797979 solid; margin-top:16px;}
+
+.input_01{ width:127px; height:20px; border:1px #797979 solid;}
+.submit_01{ width:101px; height:24px; border:0; background:url(../Images/submit.gif) no-repeat; text-align:center; font:14px/24px 宋体;}
+
+.list td{ font:12px/30px 宋体;}

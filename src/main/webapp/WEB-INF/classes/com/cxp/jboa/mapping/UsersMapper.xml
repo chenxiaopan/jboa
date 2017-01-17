@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxp.jboa.dao.UsersMapper" >
+  <resultMap id="BaseResultMap" type="com.cxp.jboa.entity.Users" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="AGE" property="age" jdbcType="DECIMAL" />
+    <result column="SEX" property="sex" jdbcType="DECIMAL" />
+    <result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="DECIMAL" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="SUPPER" property="supper" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USERNAME, PASSWORD, AGE, SEX, NICKNAME, MOBILE, ADDRESS, SUPPER
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from USERS
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from USERS
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.cxp.jboa.entity.Users" >
+    insert into USERS (ID, USERNAME, PASSWORD, 
+      AGE, SEX, NICKNAME, 
+      MOBILE, ADDRESS, SUPPER
+      )
+    values (seq.nextval, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{age,jdbcType=DECIMAL}, #{sex,jdbcType=DECIMAL}, #{nickname,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=DECIMAL}, #{address,jdbcType=VARCHAR},0
+       )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxp.jboa.entity.Users" >
+    insert into USERS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="username != null" >
+        USERNAME,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="age != null" >
+        AGE,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="nickname != null" >
+        NICKNAME,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="supper != null" >
+        SUPPER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=DECIMAL},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=DECIMAL},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=DECIMAL},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="supper != null" >
+        #{supper,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.cxp.jboa.entity.Users" >
+    update USERS
+    <set >
+      <if test="username != null" >
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        AGE = #{age,jdbcType=DECIMAL},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=DECIMAL},
+      </if>
+      <if test="nickname != null" >
+        NICKNAME = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=DECIMAL},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="supper != null" >
+        SUPPER = #{supper,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxp.jboa.entity.Users" >
+    update USERS
+    set USERNAME = #{username,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      AGE = #{age,jdbcType=DECIMAL},
+      SEX = #{sex,jdbcType=DECIMAL},
+      NICKNAME = #{nickname,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=DECIMAL},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      SUPPER = #{supper,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="getByUsername" resultMap="BaseResultMap">
+    select* from users where username=#{username}
+  </select>
+  
+    <select id="listUser" parameterType="Map" resultMap="BaseResultMap">
+      select * from users  
+      <where>
+       <if test="supper!=null">
+          supper=#{supper}
+       </if>
+       <if test="id!=null">
+          and id!=#{id}
+       </if>
+      </where>
+    </select>
+  
+</mapper>

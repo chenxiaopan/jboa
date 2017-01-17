@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxp.jboa.dao.LeaveMapper" >
+  <resultMap id="BaseResultMap" type="com.cxp.jboa.entity.Leave" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="STARTTIME" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="ENDTIME" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="LEAVEDAY" property="leaveDay" jdbcType="DECIMAL" />
+    <result column="REASON" property="reason" jdbcType="VARCHAR" />
+    <result column="CHECKID" property="checkId" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="WHOID" property="whoId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, NAME, STARTTIME, ENDTIME, LEAVEDAY, REASON, CHECKID, STATUS, WHOID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from LEAVE
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from LEAVE
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insertSelective" parameterType="com.cxp.jboa.entity.Leave" >
+    insert into LEAVE (ID, NAME, STARTTIME, 
+      ENDTIME, LEAVEDAY, REASON, 
+      CHECKID, STATUS, WHOID
+      )
+    values (seq.nextval, #{name,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{leaveDay,jdbcType=DECIMAL}, #{reason,jdbcType=VARCHAR}, 
+      #{checkId,jdbcType=DECIMAL}, #{status,jdbcType=DECIMAL}, #{whoId,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insert" parameterType="com.cxp.jboa.entity.Leave" >
+    insert into LEAVE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="startTime != null" >
+        STARTTIME,
+      </if>
+      <if test="endTime != null" >
+        ENDTIME,
+      </if>
+      <if test="leaveDay != null" >
+        LEAVEDAY,
+      </if>
+      <if test="reason != null" >
+        REASON,
+      </if>
+      <if test="checkId != null" >
+        CHECKID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="whoId != null" >
+        WHOID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        id=seq.nextval
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leaveDay != null" >
+        #{leaveDay,jdbcType=DECIMAL},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="checkId != null" >
+        #{checkId,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="whoId != null" >
+        #{whoId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateById" parameterType="com.cxp.jboa.entity.Leave" >
+    update LEAVE
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        STARTTIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        ENDTIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leaveDay != null" >
+        LEAVEDAY = #{leaveDay,jdbcType=DECIMAL},
+      </if>
+      <if test="reason != null" >
+        REASON = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="checkId != null" >
+        CHECKID = #{checkId,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="whoId != null" >
+        WHOID = #{whoId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxp.jboa.entity.Leave" >
+    update LEAVE
+    set NAME = #{name,jdbcType=VARCHAR},
+      STARTTIME = #{startTime,jdbcType=TIMESTAMP},
+      ENDTIME = #{endTime,jdbcType=TIMESTAMP},
+      LEAVEDAY = #{leaveDay,jdbcType=DECIMAL},
+      REASON = #{reason,jdbcType=VARCHAR},
+      CHECKID = #{checkId,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=DECIMAL},
+      WHOID = #{whoId,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="getTotalCount" parameterType="com.cxp.jboa.entity.Leave" resultType="java.lang.Integer">
+   select count(1) from leave
+  </select>
+  
+  <select id="listLeave" parameterType="Map" resultMap="BaseResultMap">
+   select * from leave
+  </select>
+  
+  <select id="selectById" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+   select * from leave where id=#{id}
+  </select>
+  
+</mapper>
